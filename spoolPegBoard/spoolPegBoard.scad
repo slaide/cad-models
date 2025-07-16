@@ -1,8 +1,8 @@
-$fn=40;
+$fn=100;
 
 /*[backing board size]*/
-board_width=250;
-board_height=250;
+board_width=240;
+board_height=245;
 board_depth=4;
 
 /* [common peg parameters] */

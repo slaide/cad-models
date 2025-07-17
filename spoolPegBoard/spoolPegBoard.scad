@@ -1,4 +1,4 @@
-$fn=100;
+$fn=10;
 
 /*[backing board size]*/
 board_width=240;
@@ -42,7 +42,6 @@ include <BOSL2/std.scad>
 peg_shift=peg_length*tan(peg_tilt_deg);
 peg_rounding1=-4;
 
-
 // height difference between top of bottom area and bottom of top area
 peg_inter_area_height=(peg_spacing_y1+peg_spacing_y2)/2;
 // total peg area height
@@ -73,7 +72,7 @@ module peg(){
     ])
     cyl(
         h=peg_length,
-        r=peg_diameter,
+        d=peg_diameter,
         shift=[0,peg_shift],
         rounding1=peg_rounding1,
         rounding2=2,
@@ -82,7 +81,7 @@ module peg(){
 }
 
 module hookHole(){
-    cube([10,5,board_depth],center=true);
+    cube([hook_hole_width,hook_hole_height,board_depth],center=true);
 }
 
 module baseBoard(){

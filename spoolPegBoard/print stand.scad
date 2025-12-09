@@ -1,4 +1,5 @@
-$fn=32;
+# this is mostly the source code of the peg board, but with some minor modifications to make it a 
+# print stand instead.
 
 /*[backing board size]*/
 board_width=240;
@@ -8,12 +9,12 @@ board_depth=4;
 /* [common peg parameters] */
 // [peg length in mm] offset of peg top from board, measured perpendicular, regardless of angle!
 peg_length=60;
-peg_diameter=5;
-peg_top_area_fraction=0.55;
+peg_diameter=10;
+peg_top_area_fraction=0.0;
 // angle between board normal and peg
-peg_tilt_deg=20;
+peg_tilt_deg=0;
 /* [spacing for bottom pegs] */
-peg_spacing_x1=55;
+peg_spacing_x1=55*0.8;
 peg_spacing_y1=55;
 /* [spacing for top pegs] */
 peg_spacing_x2=30;
@@ -28,6 +29,7 @@ peg_top_padding=30;
 peg_area_width=board_width-peg_side_padding;
 peg_area_height=board_height-peg_top_padding;
 
+hook_holes_present=false;
 hook_hole_width=13;
 hook_hole_height=5;
 hook_hole_horizontaloffset=39;
@@ -35,6 +37,8 @@ hook_hole_verticaloffset=10;
 
 /* terminate input parameters */
 if(false){}
+
+$fn=$preview?16:64;
 
 include <BOSL2/std.scad>
 
@@ -98,6 +102,7 @@ module baseBoard(){
             ],
         );
         
+        if(hook_holes_present)
         union(){
             translate([+hook_hole_horizontaloffset,board_height-hook_hole_verticaloffset,0])
             hookHole();
@@ -122,7 +127,7 @@ translate([0,0,0])
 #cube([board_width,peg_area_bottom_height,board_depth]);
 
 for(idx=[0:1:num_pegs_x1]){
-    for(idy=[0:1:num_pegs_y1]){
+    for(idy=[0:1:(num_pegs_y1+1)]){
         translate([
             board_width/2
             -num_pegs_x1/2*peg_spacing_x1
@@ -140,6 +145,7 @@ if(false)
 translate([0,bottom_of_top_pegs,0])
 #cube([board_width,peg_area_top_height,board_depth]);
 
+if(false)
 for(idx=[0:1:num_pegs_x2]){
     for(idy=[0:1:num_pegs_y2]){
         translate([
